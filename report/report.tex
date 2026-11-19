@@ -1,0 +1,153 @@
+\documentclass{article}
+\usepackage{xcolor}
+\usepackage{titleps}
+\usepackage[letterpaper, margin=0.95in]{geometry}
+\usepackage{url}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{wrapfig}
+\usepackage{float}
+\usepackage{mathtools}
+\usepackage{enumitem}
+\usepackage{tabu}
+\usepackage{parskip}
+\usepackage{natbib}
+\usepackage{listings}
+\usepackage[utf8]{inputenc} % allow utf-8 input
+\usepackage[T1]{fontenc}    % use 8-bit T1 fonts
+\usepackage[hidelinks]{hyperref}       % hyperlinks
+\usepackage{wrapfig}
+\usepackage{url}            % simple URL typesetting
+\usepackage{booktabs}       % professional-quality tables
+\usepackage{amsfonts}       % blackboard math symbols
+\usepackage{nicefrac}       % compact symbols for 1/2, etc.
+\usepackage{microtype}      % microtypography
+\usepackage{xcolor}         % colors
+\usepackage{amsmath,amssymb} % define this before the line numbering.
+\usepackage{makecell}
+% % Support for easy cross-referencing
+\usepackage{graphics} % for pdf, bitmapped graphics files
+\usepackage{colortbl}
+\usepackage{xcolor}
+% \usepackage{epsfig} % for postscript graphics files
+\usepackage{empheq}
+%\usepackage{mathptmx} % assumes new font selection scheme installed
+% \usepackage{times} % assumes new font selection scheme installed
+\usepackage{bm}
+\usepackage{bbding} 
+% \usepackage{cite}
+\usepackage{diagbox}
+\usepackage[linesnumbered,ruled]{algorithm2e}
+% \usepackage{ulem} %to strike the words
+% \usepackage{hyperref}
+% \usepackage{soul}
+
+\newcommand{\cmark}{\ding{51}}%
+\newcommand{\xmark}{\ding{55}}%
+% \definecolor{themeblue}{RGB}{57, 162, 219}
+% \definecolor{themegreen}{RGB}{87, 204, 153}
+% \definecolor{forestgreen}{RGB}{47, 159, 87}
+
+\usepackage[capitalize]{cleveref}
+% \usepackage{todonotes}
+\usepackage{float}
+\usepackage{booktabs}
+\usepackage{multirow}
+%\usepackage{ bbold }
+\usepackage{mathrsfs}
+\usepackage[utf8]{inputenc}
+%\usepackage{subfigure}
+\usepackage{pifont}
+\usepackage{threeparttable}
+
+\usepackage{hyperref}
+\usepackage[color=red]{todonotes}
+\usepackage{forest}
+\definecolor{light-yellow}{HTML}{FFE5CC}
+\newcounter{RNum}
+\renewcommand{\theRNum}{\arabic{RNum}}
+\newcommand{\Remark}{\noindent\textbf{Remark}~\refstepcounter{RNum}\textbf{\theRNum}: }
+\newcommand{\fref}[1]{Fig.~\ref{#1}}
+\newcommand{\sref}[1]{Section~\ref{#1}}
+\newcommand{\tref}[1]{Table~\ref{#1}}
+\newcommand{\appref}[1]{Appendix~\ref{#1}}
+\newcommand{\highlight}[1]{\noindent\quad\textbf{#1}:~}
+\newcommand{\myparagraph}[1]{\noindent\textbf{#1}~}
+
+\newpagestyle{ruled}
+{\sethead{CMU 16-831}{Intro to Robot Learning}{Spring 2026}\headrule
+  \setfoot{}{}{}}
+\pagestyle{ruled}
+
+\renewcommand\makeheadrule{\color{black}\rule[-.75\baselineskip]{\linewidth}{0.4pt}}
+\renewcommand*\footnoterule{}
+
+\begin{document}
+\lstset{basicstyle = \ttfamily,columns=fullflexible,
+backgroundcolor = \color{light-yellow}
+}
+
+\begin{centering}
+    {\Large Assignment 1: Imitation Learning} \\
+    \vspace{.25cm}
+    \textbf{Andrew ID:} \texttt{YOUR ID} \\
+    \textbf{Collaborators:} \texttt{YOUR COLLABORATORS}\\ 
+\end{centering}
+
+\vspace{.5cm}
+
+\section{Behavioral Cloning (9.75 pt)}
+\subsection{Part 2 (1.5 pt)}
+\# TODO
+\begin{table}[!h]
+  \centering
+  \caption{Expert return (mean and std.) over the two expert trajectories provided in \texttt{expert\_data/}.}
+    \begin{tabular}{cccccc}
+    \toprule[1.0pt]
+    Metric/Env & Ant-v2 & Humanoid-v2 & Walker2d-v2 & Hopper-v2 & HalfCheetah-v2 \\
+    \midrule
+    Mean  & 4713.65 & 10344.52 & 5566.85 & 3772.67 & 4205.78 \\
+    Std.  & 12.20 & 20.98 & 9.24 & 1.95 & 83.04 \\
+    \bottomrule[1.0pt]
+    \end{tabular}%
+  \label{tab:p2}%
+\end{table}%
+
+\subsection{Part 3 (5.25 pt)}
+\# TODO
+\begin{table}[htbp]
+  \centering
+  \caption{BC vs.\ expert on Ant-v2 (BC reaches 98.9\% of expert) and Humanoid-v2 (BC reaches 2.6\% of expert). Identical setup for both: MLP with 2 hidden layers of 64 units (tanh), Adam with learning rate $5\times10^{-3}$, 2 expert trajectories (2000 transitions), \texttt{n\_iter}=1, \texttt{num\_agent\_train\_steps\_per\_iter}=5000, \texttt{train\_batch\_size}=100, \texttt{ep\_len}=1000, \texttt{eval\_batch\_size}=5000 (Ant: 5 eval rollouts of 1000 steps; Humanoid: $\approx$99 eval rollouts, as episodes terminate after $\approx$50 steps).}
+    \begin{tabular}{ccccc}
+    \toprule[1.0pt]
+    Env   & \multicolumn{2}{c}{Ant-v2} & \multicolumn{2}{c}{Humanoid-v2} \\
+    \midrule
+    Metric & Mean  & Std.  & Mean  & Std. \\
+    Expert & 4713.65 & 12.20 & 10344.52 & 20.98 \\
+    BC    & 4660.27 & 55.31 & 269.92 & 60.74 \\
+    \bottomrule[1.0pt]
+    \end{tabular}%
+  \label{tab:p3}%
+\end{table}%
+
+\subsection{Part 4 (3 pt)}
+\# TODO, fill in the \fref{fig:p4}, provide some analysis.
+
+\begin{figure*}[!h]
+	\centering
+\includegraphics[width=0.5\columnwidth]{../figures/fig1_bc_sweep.png}
+	\caption{BC agent’s performance on Ant-v2 as a function of \texttt{num\_agent\_train\_steps\_per\_iter} $\in \{250, 500, 1000, 2000, 3000, 5000, 10000\}$ (log scale); mean $\pm$ std.\ over $\geq$5 eval rollouts (\texttt{eval\_batch\_size}=5000). All other settings as in Table~\ref{tab:p3}. Rationale: TODO(Raj).}
+	\label{fig:p4}
+\end{figure*}
+
+\section{DAgger (5.25 pt)}
+\subsection{Part 2 (5.25 pt)}
+\# TODO, Report the results for Ant-v2 and [Another Env] in \fref{fig:p5}:
+\begin{figure*}[!h]
+	\centering
+	\includegraphics[width=1.0\columnwidth]{../figures/fig2_dagger.png}
+	\caption{DAgger learning curves (mean $\pm$ std.\ of eval return vs.\ DAgger iteration) on Ant-v2 (left) and Humanoid-v2 (right), with expert and BC performance as horizontal lines. Same network and training settings as Table~\ref{tab:p3}; \texttt{n\_iter}=10, each iteration collects \texttt{batch\_size}=1000 new environment steps with the current policy, relabels them with the expert, and trains for 5000 steps on the aggregated dataset.}
+	\label{fig:p5}
+\end{figure*}
+
+\end{document}
